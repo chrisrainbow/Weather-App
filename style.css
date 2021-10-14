@@ -1,0 +1,10 @@
+body {
+    background:#eeedec;
+    letter-spacing: 0.2em;
+    font-size: 0.8em;
+}
+
+/* Weather card styles */
+.container.weatherapp {
+max-width:400px;
+}

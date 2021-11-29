@@ -1,6 +1,25 @@
 // JS file to manipulate the DOM
 
 const cityForm = document.querySelector("form")
+const card = document.querySelector(".card");
+const details = document.querySelector(".details");
+
+
+const updateUI = (data) => {
+const cityKey = data.cityKey;
+const weather = data.CityWeather;
+details.innerHTML = `<h5 class="my-3">${cityKey.EnglishName}, ${cityKey.Country.EnglishName}</h5>
+<div class="my-3">${weather.WeatherText}</div>
+<div class="display-4 my-4">
+    <span>${weather.Temperature.Metric.Value}</span>
+    <span>&deg;</span>
+</div>`
+if (card.classList.contains("d-none")) {
+card.classList.remove("d-none"); 
+}
+
+
+}; 
 
 
 
@@ -8,8 +27,8 @@ const updateCity = async (city) => {
 const cityKey = await getCity(city);
 const CityWeather = await getWeather(cityKey.Key);
 
-return {cityDetails: cityKey,
-        weather: CityWeather
+return {cityKey,
+       CityWeather
 }
 }
 
@@ -19,7 +38,7 @@ cityForm.addEventListener("submit", e =>{
     cityForm.reset();
 
     updateCity(city).then((data, err ) =>{
-            console.log(data)}) 
+           updateUI(data)}) 
         .catch(err => {
             console.log(err, "there was an error")
         });

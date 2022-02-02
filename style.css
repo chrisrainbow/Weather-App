@@ -8,3 +8,15 @@ body {
 .container.weatherapp {
 max-width:400px;
 }
+
+.icon {
+    position: relative;
+    top: -50px;
+    border-radius: 50%;
+    width:100px;
+    margin-bottom:-50px;
+}
+.icon img {
+    border-radius: 50%;
+    background-color:#FFF;
+}

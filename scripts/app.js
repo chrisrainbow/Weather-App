@@ -27,17 +27,25 @@ const updateCity = async (city) => {
     return {
         cityKey,
         CityWeather
-    }
-}
+    };
+};
+
 cityForm.addEventListener("submit", e => {
     e.preventDefault();
     const city = cityForm.city.value.trim();
     cityForm.reset();
 
     updateCity(city).then((data, err) => {
-        updateUI(data)
+        updateUI(data);
     })
         .catch(err => {
-            console.log(err, "there was an error")
+            console.log(err, "there was an error");
         });
+    localStorage.setItem("city", city);
 });
+
+if (localStorage.getItem("city")) {
+        updateCity(localStorage.getItem("city"))
+        .then(data => updateUI(data))
+        .catch(err => console.log(err));
+    };

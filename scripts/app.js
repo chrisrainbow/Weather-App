@@ -3,9 +3,14 @@ const card = document.querySelector(".card");
 const details = document.querySelector(".details");
 const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
+const forcast = new Forcast();
+console.log(forcast)
 
 const updateUI = (data) => {
-    const { cityKey, CityWeather } = data;
+    const {
+        cityKey,
+        CityWeather
+    } = data;
     details.innerHTML = `<h5 class="my-3">${cityKey.EnglishName}, ${cityKey.Country.EnglishName}</h5>
 <div class="my-3">${CityWeather.WeatherText}</div>
 <div class="display-4 my-4">
@@ -20,24 +25,15 @@ const updateUI = (data) => {
         card.classList.remove("d-none");
     }
 };
-const updateCity = async (city) => {
-    const cityKey = await getCity(city);
-    const CityWeather = await getWeather(cityKey.Key);
-
-    return {
-        cityKey,
-        CityWeather
-    };
-};
 
 cityForm.addEventListener("submit", e => {
     e.preventDefault();
     const city = cityForm.city.value.trim();
     cityForm.reset();
 
-    updateCity(city).then((data, err) => {
-        updateUI(data);
-    })
+    forcast.updateCity(city).then((data, err) => {
+            updateUI(data);
+        })
         .catch(err => {
             console.log(err, "there was an error");
         });
@@ -45,7 +41,7 @@ cityForm.addEventListener("submit", e => {
 });
 
 if (localStorage.getItem("city")) {
-        updateCity(localStorage.getItem("city"))
+    forcast.updateCity(localStorage.getItem("city"))
         .then(data => updateUI(data))
         .catch(err => console.log(err));
-    };
+};
